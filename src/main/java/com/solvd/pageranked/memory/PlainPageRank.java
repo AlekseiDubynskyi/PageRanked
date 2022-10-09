@@ -1,6 +1,5 @@
 package com.solvd.pageranked.memory;
 
-import com.solvd.pageranked.utils.MemoryUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,13 +11,10 @@ import java.util.Map;
 import java.util.StringTokenizer;
 
 public class PlainPageRank {
-
-    private static final Logger LOG = LoggerFactory.getLogger(PlainPageRank.class);
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlainPageRank.class);
     private final Graph graph = new Graph();
     private final Map<Node, Double> pagerank_current = new HashMap<Node, Double>();
     private final Map<Node, Double> pagerank_new = new HashMap<Node, Double>();
-
     private final double dumping_factor;
     private final int iterations;
 
@@ -27,9 +23,7 @@ public class PlainPageRank {
         this.iterations = iterations;
 
         try {
-            MemoryUtil.printUsedMemory();
             load_data(in);
-            MemoryUtil.printUsedMemory();
 
             initialize_pagerank();
         } catch (IOException e) {
@@ -40,7 +34,7 @@ public class PlainPageRank {
     public Map<Node, Double> compute() {
         double teleport = (1.0d - dumping_factor) / graph.countNodes();
         for (int i = 0; i < iterations; i++) {
-            LOG.info("iteration " + i);
+            LOGGER.debug("iteration " + i);
             double dangling_nodes = 0.0d;
             for (Node node : graph.getNodes()) {
                 if (graph.countOutgoingLinks(node) == 0) {
@@ -95,7 +89,7 @@ public class PlainPageRank {
         }
         in.close();
 
-        LOG.info(String.format("Loaded %d nodes and %d links in %d ms", graph.countNodes(), graph.countLinks(), (System.currentTimeMillis() - start)));
+        LOGGER.debug(String.format("Loaded %d nodes and %d links in %d ms", graph.countNodes(), graph.countLinks(), (System.currentTimeMillis() - start)));
     }
 
 }
