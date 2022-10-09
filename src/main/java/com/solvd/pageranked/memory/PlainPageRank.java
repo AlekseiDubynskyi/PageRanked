@@ -40,7 +40,7 @@ public class PlainPageRank {
     public Map<Node, Double> compute() {
         double teleport = (1.0d - dumping_factor) / graph.countNodes();
         for (int i = 0; i < iterations; i++) {
-            LOG.debug("iteration " + i);
+            LOG.info("iteration " + i);
             double dangling_nodes = 0.0d;
             for (Node node : graph.getNodes()) {
                 if (graph.countOutgoingLinks(node) == 0) {
@@ -95,7 +95,7 @@ public class PlainPageRank {
         }
         in.close();
 
-        LOG.debug(String.format("Loaded %d nodes and %d links in %d ms", graph.countNodes(), graph.countLinks(), (System.currentTimeMillis() - start)));
+        LOG.info(String.format("Loaded %d nodes and %d links in %d ms", graph.countNodes(), graph.countLinks(), (System.currentTimeMillis() - start)));
     }
 
 }
