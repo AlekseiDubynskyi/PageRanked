@@ -1,6 +1,6 @@
-package com.solvd.memory;
+package com.solvd.pageranked.memory;
 
-import com.solvd.utils.MemoryUtil;
+import com.solvd.pageranked.utils.MemoryUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,7 +1,7 @@
-package com.solvd;
+package com.solvd.pageranked;
 
-import com.solvd.memory.Node;
-import com.solvd.memory.PlainPageRank;
+import com.solvd.pageranked.memory.Node;
+import com.solvd.pageranked.memory.PlainPageRank;
 
 import java.io.BufferedReader;
 import java.io.File;

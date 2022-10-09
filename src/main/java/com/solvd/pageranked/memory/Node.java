@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.solvd.memory;
+package com.solvd.pageranked.memory;
 
 public class Node {
 
