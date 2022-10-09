@@ -20,7 +20,7 @@ public class TestPageRank {
         File input = new File ("src/main/resources/test/test.dat");
         BufferedReader in = new BufferedReader(new FileReader (input)) ;
 
-        PlainPageRank pagerank1 = new PlainPageRank (in, 0.85d, 30) ;
+        PlainPageRank pagerank1 = new PlainPageRank (in, 0.85d, 5) ;
         Map<Node, Double> result1 = pagerank1.compute() ;
 
         print(result1);
