@@ -1,9 +1,0 @@
-com/solvd/pageranked/test/PRWritable.class
-com/solvd/pageranked/test/WikiXMLParser$PageHandler.class
-com/solvd/pageranked/test/PageRank$Reduce.class
-com/solvd/pageranked/test/PageRank$Map.class
-com/solvd/pageranked/test/WikiXMLParser.class
-com/solvd/pageranked/test/WikiXMLParser$Page.class
-com/solvd/pageranked/test/WikiXMLParser$TextParser.class
-com/solvd/pageranked/Main.class
-com/solvd/pageranked/test/PageRank.class
