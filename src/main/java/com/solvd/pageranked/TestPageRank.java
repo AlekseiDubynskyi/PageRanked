@@ -2,28 +2,28 @@ package com.solvd.pageranked;
 
 import com.solvd.pageranked.memory.Node;
 import com.solvd.pageranked.memory.PlainPageRank;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.Map.Entry;
 
 public class TestPageRank {
+    private static final Logger LOGGER = LogManager.getLogger(TestPageRank.class);
 
     public static void main(String[] args) throws IOException {
         testPageRank();
     }
 
     public static void testPageRank() throws IOException {
-        File input = new File ("src/main/resources/test/test.dat");
-        BufferedReader in = new BufferedReader(new FileReader (input)) ;
+        File input = new File("src/main/resources/test/test.txt");
+        BufferedReader in = new BufferedReader(new FileReader(input));
 
-        PlainPageRank pagerank1 = new PlainPageRank (in, 0.85d, 5) ;
-        Map<Node, Double> result1 = pagerank1.compute() ;
+        PlainPageRank pagerank = new PlainPageRank(in, 0.85d, 5);
+        Map<Node, Double> result = pagerank.compute();
 
-        print(result1);
+        print(result);
     }
 
 
@@ -40,7 +40,7 @@ public class TestPageRank {
         Collections.sort(list, new Comparator<Entry<Node, Double>>() {
             @Override
             public int compare(Entry<Node, Double> o1, Entry<Node, Double> o2) {
-                return - o1.getValue().compareTo(o2.getValue());
+                return -o1.getValue().compareTo(o2.getValue());
             }
         });
 
@@ -48,9 +48,6 @@ public class TestPageRank {
         for (Entry<Node, Double> entry : list) {
             result.put(entry.getKey(), entry.getValue());
         }
-
         return result;
     }
-
-
 }
