@@ -5,8 +5,8 @@ import java.io.*;
 
 public class PageRank {
     private int nodes;
-    public int path[][];
-    public double pagerank[];
+    public int[][] path;
+    public double[] pagerank;
 
     public int getNodes() {
         return nodes;
@@ -24,12 +24,9 @@ public class PageRank {
         path = new int[nodes][nodes];
         pagerank = new double[nodes];
         do {
-
-
             sourceArray = line.split(" ");
             for (int j = 0; j < nodes; j++) {
                 path[currentLine][j] = Integer.parseInt(sourceArray[j]);
-
             }
             currentLine++;
         }
