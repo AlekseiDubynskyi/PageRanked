@@ -1,4 +1,4 @@
-package com.solvd.pageranked.test;
+package com.solvd.pageranked.services.test;
 
 import java.util.*;
 import java.io.*;
@@ -25,6 +25,7 @@ public class PageRank {
         pagerank = new double[nodes];
         do {
             sourceArray = line.split(" ");
+            System.out.println(Arrays.toString(sourceArray));
             for (int j = 0; j < nodes; j++) {
                 path[currentLine][j] = Integer.parseInt(sourceArray[j]);
             }
@@ -39,7 +40,7 @@ public class PageRank {
         double InitialPageRank;
         double OutgoingLinks = 0;
         double DampingFactor = 0.85;
-        double TempPageRank[] = new double[nodes];
+        double[] TempPageRank = new double[nodes];
         int ExternalNodeNumber;
         int InternalNodeNumber;
         int k; // For Traversing
@@ -53,7 +54,7 @@ public class PageRank {
             this.pagerank[k] = InitialPageRank;
         }
 
-        System.out.printf("\n Initial PageRank Values , 0th Step \n");
+        System.out.print("\n Initial PageRank Values , 0th Step \n");
         for (k = 0; k < totalNodes; k++) {
             System.out.printf(" Page Rank of " + (k + 1) + " is :\t" + this.pagerank[k] + "\n");
         }
@@ -96,7 +97,7 @@ public class PageRank {
         }
 
         // Display PageRank
-        System.out.printf("\n Final Page Rank : \n");
+        System.out.print("\n Final Page Rank : \n");
         for (k = 0; k < totalNodes; k++) {
             System.out.printf(" Page Rank of " + (k + 1) + " is :\t" + this.pagerank[k] + "\n");
         }

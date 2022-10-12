@@ -1,4 +1,4 @@
-package com.solvd.pageranked.test;
+package com.solvd.pageranked.services.test;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
