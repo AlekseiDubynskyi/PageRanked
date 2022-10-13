@@ -29,14 +29,6 @@ public class ConnectionUtil {
         return connection;
     }
 
-    public static void close(Statement statement) {
-        try {
-            if (statement != null) statement.close();
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
-
     public static void close(PreparedStatement preparedStatement) {
         try {
             if (preparedStatement != null) preparedStatement.close();
@@ -52,13 +44,4 @@ public class ConnectionUtil {
             se.printStackTrace();
         }
     }
-
-    public static void close(ResultSet resultSet) {
-        try {
-            if (resultSet != null) resultSet.close();
-        } catch (SQLException se) {
-            se.printStackTrace();
-        }
-    }
-
 }
