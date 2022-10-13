@@ -5,7 +5,8 @@ import com.solvd.pageranked.models.Relations;
 import java.util.List;
 
 public interface IRelations {
-    Relations getByNodeAndLink (int nodesId, int linksId);
+    Relations getByNodeAndLink(int nodesId, int linksId);
+
     List<Relations> getAllRelations();
 
     void addRelations(Relations relations);

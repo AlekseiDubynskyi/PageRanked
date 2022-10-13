@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ILinks {
     Links getByLinkHref(String linkHref);
+
     List<Links> getAllLinks();
 
     void addLink(Links links);

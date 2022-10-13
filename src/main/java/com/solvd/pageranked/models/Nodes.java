@@ -12,6 +12,18 @@ public class Nodes {
     public Nodes() {
     }
 
+    public Nodes(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Nodes(int id, int quantityIn, int quantityOut, String name) {
+        this.id = id;
+        this.quantityIn = quantityIn;
+        this.quantityOut = quantityOut;
+        this.name = name;
+    }
+
     public Nodes(int id, int quantityIn, int quantityOut, String name, double pageRank) {
         this.id = id;
         this.quantityIn = quantityIn;

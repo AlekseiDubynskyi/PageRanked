@@ -92,7 +92,6 @@ public class NodesDAO implements INodes {
             preparedStatement.setInt(3, nodes.getQuantityOut());
             preparedStatement.setString(4, nodes.getName());
             preparedStatement.setDouble(5, nodes.getPageRank());
-
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {
