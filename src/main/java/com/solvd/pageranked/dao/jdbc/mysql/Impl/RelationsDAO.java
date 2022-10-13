@@ -1,8 +1,8 @@
 package com.solvd.pageranked.dao.jdbc.mysql.Impl;
 
 import com.solvd.pageranked.connection.ConnectionUtil;
-import com.solvd.pageranked.dao.INodes;
-import com.solvd.pageranked.models.Nodes;
+import com.solvd.pageranked.dao.IRelations;
+import com.solvd.pageranked.models.Relations;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,33 +13,32 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NodesDAO implements INodes {
-    private static final Logger LOGGER = LogManager.getLogger(NodesDAO.class);
-    private static final String INSERT = "INSERT INTO Nodes VALUES (?, ?, ?, ?, ?)";
-    private static final String UPDATE = "UPDATE Nodes SET pageRank = ? WHERE id = ?";
-    private static final String DELETE = "DELETE FROM Nodes WHERE id = ?";
-    private static final String GET_BY_NAME = "SELECT * FROM Nodes WHERE name = ?";
-    private static final String GET_ALL = "SELECT * FROM Nodes";
+public class RelationsDAO implements IRelations {
+    private static final Logger LOGGER = LogManager.getLogger(Relations.class);
+    private static final String INSERT = "INSERT INTO Relations VALUES (?, ?, ?)";
+    private static final String UPDATE = "UPDATE Relations SET Nodes_id = ?, Links_id = ? WHERE id = ?";
+    private static final String DELETE = "DELETE FROM Relations WHERE id = ?";
+    private static final String GET_BY_NODE_AND_LINK = "SELECT * FROM Relations WHERE Nodes_id = ?, Links_id = ?";
+    private static final String GET_ALL = "SELECT * FROM Relations";
 
     @Override
-    public Nodes getByName(String name) {
+    public Relations getByNodeAndLink(int nodesId, int linksId) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionUtil.getConnection();
-            preparedStatement = connection.prepareStatement(GET_BY_NAME);
-            preparedStatement.setString(1, name);
+            preparedStatement = connection.prepareStatement(GET_BY_NODE_AND_LINK);
+            preparedStatement.setInt(1, nodesId);
+            preparedStatement.setInt(2, linksId);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                Nodes nodes = new Nodes();
-                nodes.setId(resultSet.getInt("id"));
-                nodes.setQuantityIn(resultSet.getInt("quantity_In"));
-                nodes.setQuantityOut(resultSet.getInt("quantity_Out"));
-                nodes.setName(resultSet.getString("name"));
-                nodes.setPageRank(resultSet.getDouble("pageRank"));
-                return nodes;
+                Relations relations = new Relations();
+                relations.setId(resultSet.getInt("id"));
+                relations.setNodesId(resultSet.getInt("Nodes_id"));
+                relations.setLinksId(resultSet.getInt("Links_id"));
+                return relations;
             }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
@@ -51,27 +50,24 @@ public class NodesDAO implements INodes {
     }
 
     @Override
-    public List<Nodes> getAllNodes() {
+    public List<Relations> getAllRelations() {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = ConnectionUtil.getConnection();
             preparedStatement = connection.prepareStatement(GET_ALL);
-            List<Nodes> nodes = new ArrayList<>();
+            List<Relations> relations = new ArrayList<>();
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                Nodes node = new Nodes();
-                node.setId(resultSet.getInt("id"));
-                node.setQuantityIn(resultSet.getInt("quantity_In"));
-                node.setQuantityOut(resultSet.getInt("quantity_Out"));
-                node.setName(resultSet.getString("name"));
-                node.setPageRank(resultSet.getDouble("pageRank"));
-                nodes.add(node);
+                Relations relation = new Relations();
+                relation.setId(resultSet.getInt("id"));
+                relation.setNodesId(resultSet.getInt("Nodes_id"));
+                relation.setLinksId(resultSet.getInt("Links_id"));
+                relations.add(relation);
             }
-            return nodes;
-
+            return relations;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {
@@ -82,17 +78,14 @@ public class NodesDAO implements INodes {
     }
 
     @Override
-    public void addNode(Nodes nodes) {
+    public void addRelations(Relations relations) {
         PreparedStatement preparedStatement = null;
         Connection connection = ConnectionUtil.getConnection();
         try {
             preparedStatement = connection.prepareStatement(INSERT);
-            preparedStatement.setInt(1, nodes.getId());
-            preparedStatement.setInt(2, nodes.getQuantityIn());
-            preparedStatement.setInt(3, nodes.getQuantityOut());
-            preparedStatement.setString(4, nodes.getName());
-            preparedStatement.setDouble(5, nodes.getPageRank());
-
+            preparedStatement.setInt(1, relations.getId());
+            preparedStatement.setInt(2, relations.getNodesId());
+            preparedStatement.setInt(3, relations.getLinksId());
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {
@@ -102,13 +95,14 @@ public class NodesDAO implements INodes {
     }
 
     @Override
-    public void updateNode(Nodes nodes) {
+    public void updateRelations(Relations relations) {
         PreparedStatement preparedStatement = null;
         Connection connection = ConnectionUtil.getConnection();
         try {
             preparedStatement = connection.prepareStatement(UPDATE);
-            preparedStatement.setDouble(1, nodes.getPageRank());
-            preparedStatement.setInt(2, nodes.getId());
+            preparedStatement.setInt(1, relations.getNodesId());
+            preparedStatement.setInt(2, relations.getLinksId());
+            preparedStatement.setInt(3, relations.getId());
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {
@@ -118,12 +112,11 @@ public class NodesDAO implements INodes {
     }
 
     @Override
-    public void deleteNode(int id) {
+    public void deleteRelations(int id) {
         PreparedStatement preparedStatement = null;
         Connection connection = ConnectionUtil.getConnection();
         try {
             preparedStatement = connection.prepareStatement(DELETE + id);
-
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {

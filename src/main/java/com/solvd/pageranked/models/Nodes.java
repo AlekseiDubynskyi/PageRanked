@@ -1,17 +1,23 @@
 package com.solvd.pageranked.models;
 
+import java.util.Objects;
+
 public class Nodes {
     private int id;
-    private int number;
-    private int pageInfoId;
+    private int quantityIn;
+    private int quantityOut;
+    private String name;
+    private double pageRank;
 
     public Nodes() {
     }
 
-    public Nodes(int id, int number, int pageInfoId) {
+    public Nodes(int id, int quantityIn, int quantityOut, String name, double pageRank) {
         this.id = id;
-        this.number = number;
-        this.pageInfoId = pageInfoId;
+        this.quantityIn = quantityIn;
+        this.quantityOut = quantityOut;
+        this.name = name;
+        this.pageRank = pageRank;
     }
 
     public int getId() {
@@ -22,48 +28,59 @@ public class Nodes {
         this.id = id;
     }
 
-    public int getNumber() {
-        return number;
+    public int getQuantityIn() {
+        return quantityIn;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setQuantityIn(int quantityIn) {
+        this.quantityIn = quantityIn;
     }
 
-    public int getPageInfoId() {
-        return pageInfoId;
+    public int getQuantityOut() {
+        return quantityOut;
     }
 
-    public void setPageInfoId(int pageInfoId) {
-        this.pageInfoId = pageInfoId;
+    public void setQuantityOut(int quantityOut) {
+        this.quantityOut = quantityOut;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPageRank() {
+        return pageRank;
+    }
+
+    public void setPageRank(double pageRank) {
+        this.pageRank = pageRank;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Nodes nodes = (Nodes) o;
-
-        if (id != nodes.id) return false;
-        if (number != nodes.number) return false;
-        return pageInfoId == nodes.pageInfoId;
+        return id == nodes.id && quantityIn == nodes.quantityIn && quantityOut == nodes.quantityOut && Double.compare(nodes.pageRank, pageRank) == 0 && name.equals(nodes.name);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + number;
-        result = 31 * result + pageInfoId;
-        return result;
+        return Objects.hash(id, quantityIn, quantityOut, name, pageRank);
     }
 
     @Override
     public String toString() {
         return "Nodes{" +
                 "id=" + id +
-                ", number=" + number +
-                ", pageInfoId=" + pageInfoId +
+                ", quantityIn=" + quantityIn +
+                ", quantityOut=" + quantityOut +
+                ", name='" + name + '\'' +
+                ", pageRank=" + pageRank +
                 '}';
     }
 }
