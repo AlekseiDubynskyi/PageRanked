@@ -5,6 +5,7 @@ import com.solvd.pageranked.models.Nodes;
 import java.util.List;
 
 public interface INodes {
+    Nodes getByName (String name);
     List<Nodes> getAllNodes();
 
     void addNode(Nodes nodes);

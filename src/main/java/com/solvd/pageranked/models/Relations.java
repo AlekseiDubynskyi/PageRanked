@@ -1,5 +1,7 @@
 package com.solvd.pageranked.models;
 
+import java.util.Objects;
+
 public class Relations {
     private int id;
     private int nodesId;
@@ -42,20 +44,13 @@ public class Relations {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Relations relations = (Relations) o;
-
-        if (id != relations.id) return false;
-        if (nodesId != relations.nodesId) return false;
-        return linksId == relations.linksId;
+        return id == relations.id && nodesId == relations.nodesId && linksId == relations.linksId;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + nodesId;
-        result = 31 * result + linksId;
-        return result;
+        return Objects.hash(id, nodesId, linksId);
     }
 
     @Override
