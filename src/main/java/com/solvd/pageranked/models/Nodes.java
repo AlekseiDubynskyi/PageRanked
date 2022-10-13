@@ -12,6 +12,10 @@ public class Nodes {
     public Nodes() {
     }
 
+    public Nodes(int id) {
+        this.id = id;
+    }
+
     public Nodes(int id, String name) {
         this.id = id;
         this.name = name;

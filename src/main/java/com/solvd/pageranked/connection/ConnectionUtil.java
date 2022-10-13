@@ -24,7 +24,7 @@ public class ConnectionUtil {
 
             connection = DriverManager.getConnection(url, user, password);
         } catch (IOException | SQLException e) {
-            LOGGER.info(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
         return connection;
     }
@@ -33,7 +33,7 @@ public class ConnectionUtil {
         try {
             if (preparedStatement != null) preparedStatement.close();
         } catch (SQLException se) {
-            se.printStackTrace();
+            LOGGER.error(se.getMessage());
         }
     }
 
@@ -41,7 +41,7 @@ public class ConnectionUtil {
         try {
             if (connection != null) connection.close();
         } catch (SQLException se) {
-            se.printStackTrace();
+            LOGGER.error(se.getMessage());
         }
     }
 }

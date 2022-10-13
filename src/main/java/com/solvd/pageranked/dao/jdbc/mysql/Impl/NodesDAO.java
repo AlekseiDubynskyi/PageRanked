@@ -17,7 +17,7 @@ public class NodesDAO implements INodes {
     private static final Logger LOGGER = LogManager.getLogger(NodesDAO.class);
     private static final String INSERT = "INSERT INTO Nodes VALUES (?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE Nodes SET pageRank = ? WHERE id = ?";
-    private static final String DELETE = "DELETE FROM Nodes WHERE id = ?";
+    private static final String DELETE = "DELETE FROM Nodes WHERE id = ";
     private static final String GET_BY_NAME = "SELECT * FROM Nodes WHERE name = ?";
     private static final String GET_ALL = "SELECT * FROM Nodes";
 
@@ -92,6 +92,7 @@ public class NodesDAO implements INodes {
             preparedStatement.setInt(3, nodes.getQuantityOut());
             preparedStatement.setString(4, nodes.getName());
             preparedStatement.setDouble(5, nodes.getPageRank());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {
@@ -108,6 +109,7 @@ public class NodesDAO implements INodes {
             preparedStatement = connection.prepareStatement(UPDATE);
             preparedStatement.setDouble(1, nodes.getPageRank());
             preparedStatement.setInt(2, nodes.getId());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {
@@ -122,7 +124,7 @@ public class NodesDAO implements INodes {
         Connection connection = ConnectionUtil.getConnection();
         try {
             preparedStatement = connection.prepareStatement(DELETE + id);
-
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {
