@@ -5,7 +5,7 @@ import com.solvd.pageranked.models.Links;
 import java.util.List;
 
 public interface ILinks {
-    Links getByLinkHref(String linkHref);
+    Links getIdByLinkHref(String linkHref);
 
     List<Links> getAllLinks();
 

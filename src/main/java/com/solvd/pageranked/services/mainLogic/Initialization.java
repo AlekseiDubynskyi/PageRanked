@@ -6,9 +6,14 @@ import com.solvd.pageranked.dao.jdbc.mysql.Impl.RelationsDAO;
 
 public class Initialization {
     public static void deleteAllFromDB() {
+        deleteAllRelations();
         deleteAllNodes();
         deleteAllLinks();
-        deleteAllRelations();
+    }
+
+    public static void deleteAllRelations() {
+        RelationsDAO relationsDAO = new RelationsDAO();
+        relationsDAO.deleteAllRelations();
     }
 
     public static void deleteAllNodes() {
@@ -19,11 +24,6 @@ public class Initialization {
     public static void deleteAllLinks() {
         LinksDAO linksDAO = new LinksDAO();
         linksDAO.deleteAllLinks();
-    }
-
-    public static void deleteAllRelations() {
-        RelationsDAO relationsDAO = new RelationsDAO();
-        relationsDAO.deleteAllRelations();
     }
 }
 
