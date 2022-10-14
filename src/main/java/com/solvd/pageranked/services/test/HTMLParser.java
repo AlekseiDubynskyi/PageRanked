@@ -41,7 +41,6 @@ public class HTMLParser {
             for (Element link : links) {
                 String linkHref = link.attr("href");
                 String linkText = link.text();
-                System.out.println(linkHref + " - " + linkText);
                 if (linksList.contains(linkHref)) {
                     int idLink = linksDAO.getIdByLinkHref(linkHref).getId();
                     linksDAO.updateLink(new Links(idLink, linkHref, linkText));
@@ -71,12 +70,14 @@ public class HTMLParser {
     }
 
     public static void setQuantityIn() {
-        NodesDAO nodesDAO = new NodesDAO();
-        nodesDAO.getQuantityByLinks(2);
+//        LinksDAO linksDAO = new LinksDAO();
+//        linksDAO.getIdByLinkHref();
     }
 
     public static void setQuantityOut() {
-        NodesDAO nodesDAO = new NodesDAO();
-        nodesDAO.getQuantityByNodes(2);
+
+//        NodesDAO nodesDAO = new NodesDAO();
+//        nodesDAO.getQuantityByNodes()
+
     }
 }
