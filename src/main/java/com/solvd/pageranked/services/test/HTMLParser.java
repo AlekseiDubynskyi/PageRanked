@@ -49,8 +49,7 @@ public class HTMLParser {
                 }
             }
         }
-        setQuantityOut();
-        setQuantityIn();
+        setQuantities();
     }
 
     public static void addNodesAndLinksToDB() {
@@ -69,15 +68,11 @@ public class HTMLParser {
         }
     }
 
-    public static void setQuantityIn() {
-//        LinksDAO linksDAO = new LinksDAO();
-//        linksDAO.getIdByLinkHref();
-    }
-
-    public static void setQuantityOut() {
-
-//        NodesDAO nodesDAO = new NodesDAO();
-//        nodesDAO.getQuantityByNodes()
-
+    public static void setQuantities() {
+        NodesDAO nodesDAO = new NodesDAO();
+        List<Integer> links = nodesDAO.getAllNodes().stream().map(Nodes::getId).collect(Collectors.toList());
+        for (Integer link : links) {
+            nodesDAO.updateQuantities(new Nodes(link, nodesDAO.getQuantityByLinks(link), nodesDAO.getQuantityByNodes(link)));
+        }
     }
 }
