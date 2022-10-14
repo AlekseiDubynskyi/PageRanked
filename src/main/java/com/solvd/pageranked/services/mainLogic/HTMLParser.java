@@ -1,4 +1,4 @@
-package com.solvd.pageranked.services.test;
+package com.solvd.pageranked.services.mainLogic;
 
 import com.solvd.pageranked.dao.jdbc.mysql.Impl.LinksDAO;
 import com.solvd.pageranked.dao.jdbc.mysql.Impl.NodesDAO;
@@ -6,7 +6,6 @@ import com.solvd.pageranked.dao.jdbc.mysql.Impl.RelationsDAO;
 import com.solvd.pageranked.models.Links;
 import com.solvd.pageranked.models.Nodes;
 import com.solvd.pageranked.models.Relations;
-import com.solvd.pageranked.services.mainLogic.Initialization;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 public class HTMLParser {
     private static final Logger LOGGER = LogManager.getLogger(HTMLParser.class);
 
-    public static void main(String[] args) throws IOException {
+    public static void HTMLParsing() throws IOException {
         Initialization.deleteAllFromDB();
         addNodesAndLinksToDB();
 
@@ -49,8 +48,7 @@ public class HTMLParser {
                 }
             }
         }
-        setQuantityOut();
-        setQuantityIn();
+        setQuantities();
     }
 
     public static void addNodesAndLinksToDB() {
@@ -69,15 +67,11 @@ public class HTMLParser {
         }
     }
 
-    public static void setQuantityIn() {
-//        LinksDAO linksDAO = new LinksDAO();
-//        linksDAO.getIdByLinkHref();
-    }
-
-    public static void setQuantityOut() {
-
-//        NodesDAO nodesDAO = new NodesDAO();
-//        nodesDAO.getQuantityByNodes()
-
+    public static void setQuantities() {
+        NodesDAO nodesDAO = new NodesDAO();
+        List<Integer> links = nodesDAO.getAllNodes().stream().map(Nodes::getId).collect(Collectors.toList());
+        for (Integer link : links) {
+            nodesDAO.updateQuantities(new Nodes(link, nodesDAO.getQuantityByLinks(link), nodesDAO.getQuantityByNodes(link)));
+        }
     }
 }
