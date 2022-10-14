@@ -21,6 +21,9 @@ public class NodesDAO implements INodes {
     private static final String DELETE_ALL = "DELETE FROM Nodes";
     private static final String GET_BY_NAME = "SELECT * FROM Nodes WHERE name = ?";
     private static final String GET_ALL = "SELECT * FROM Nodes";
+    private static final String GET_QUANTITY_OF_NODES = "SELECT Nodes_id, COUNT(*) AS quantity_Out FROM Relations WHERE Nodes_id = ? GROUP BY Nodes_id";
+    private static final String GET_QUANTITY_OF_LINKS = "SELECT Links_id, COUNT(*) AS quantity_In FROM Relations WHERE Links_id = ? GROUP BY Links_id";
+
 
     @Override
     public Nodes getByName(String name) {
@@ -40,6 +43,58 @@ public class NodesDAO implements INodes {
                 nodes.setQuantityOut(resultSet.getInt("quantity_Out"));
                 nodes.setName(resultSet.getString("name"));
                 nodes.setPageRank(resultSet.getDouble("pageRank"));
+                return nodes;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        } finally {
+            ConnectionUtil.close(preparedStatement);
+            ConnectionUtil.close(connection);
+        }
+        return null;
+    }
+
+    @Override
+    public Nodes getQuantityByNodes(int nodesId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionUtil.getConnection();
+            preparedStatement = connection.prepareStatement(GET_QUANTITY_OF_NODES);
+            preparedStatement.setInt(1, nodesId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                Nodes nodes = new Nodes();
+                nodes.setId(resultSet.getInt("Nodes_id"));
+                nodes.setQuantityOut(resultSet.getInt("quantity_Out"));
+                return nodes;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        } finally {
+            ConnectionUtil.close(preparedStatement);
+            ConnectionUtil.close(connection);
+        }
+        return null;
+    }
+
+    @Override
+    public Nodes getQuantityByLinks(int linksId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionUtil.getConnection();
+            preparedStatement = connection.prepareStatement(GET_QUANTITY_OF_LINKS);
+            preparedStatement.setInt(1, linksId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                Nodes nodes = new Nodes();
+                nodes.setId(resultSet.getInt("Nodes_id"));
+                nodes.setQuantityIn(resultSet.getInt("quantity_In"));
                 return nodes;
             }
         } catch (SQLException e) {

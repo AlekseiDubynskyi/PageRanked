@@ -16,14 +16,14 @@ import java.util.List;
 public class LinksDAO implements ILinks {
     private static final Logger LOGGER = LogManager.getLogger(LinksDAO.class);
     private static final String INSERT = "INSERT INTO Links VALUES (?, ?, ?)";
-    private static final String UPDATE = "UPDATE Links SET linkHref = ? WHERE id = ?";
+    private static final String UPDATE = "UPDATE Links SET linkHref = ?, linkText = ? WHERE id = ?";
     private static final String DELETE = "DELETE FROM Links WHERE id = ";
     private static final String DELETE_ALL = "DELETE FROM Links";
     private static final String GET_BY_LINK_HREF = "SELECT * FROM Links WHERE linkHref = ?";
     private static final String GET_ALL = "SELECT * FROM Links";
 
     @Override
-    public Links getByLinkHref(String linkHref) {
+    public Links getIdByLinkHref(String linkHref) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -117,7 +117,8 @@ public class LinksDAO implements ILinks {
         try {
             preparedStatement = connection.prepareStatement(UPDATE);
             preparedStatement.setString(1, links.getLinkHref());
-            preparedStatement.setInt(2, links.getId());
+            preparedStatement.setString(2, links.getLinkText());
+            preparedStatement.setInt(3, links.getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

@@ -15,7 +15,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -39,20 +38,20 @@ public class HTMLParser {
             int idNode = nodesDAO.getByName(file.getName()).getId();
             Document document = Jsoup.parse(new File(folder + "/" + file.getName()), "UTF-8");
             Elements links = document.select("a");
-            int quantityIn = 0;
-            int quantityOut = 0;
             for (Element link : links) {
                 String linkHref = link.attr("href");
                 String linkText = link.text();
                 System.out.println(linkHref + " - " + linkText);
-                if (linksList.contains(linkHref)){
-                    int idLink = linksDAO.getByLinkHref(linkHref).getId();
+                if (linksList.contains(linkHref)) {
+                    int idLink = linksDAO.getIdByLinkHref(linkHref).getId();
+                    linksDAO.updateLink(new Links(idLink, linkHref, linkText));
                     relationsDAO.addRelations(new Relations(numberRelations, idNode, idLink));
                     numberRelations++;
                 }
             }
-
         }
+        setQuantityOut();
+        setQuantityIn();
     }
 
     public static void addNodesAndLinksToDB() {
@@ -69,5 +68,15 @@ public class HTMLParser {
             numberNodes++;
             numberLinks++;
         }
+    }
+
+    public static void setQuantityIn() {
+        NodesDAO nodesDAO = new NodesDAO();
+        nodesDAO.getQuantityByLinks(2);
+    }
+
+    public static void setQuantityOut() {
+        NodesDAO nodesDAO = new NodesDAO();
+        nodesDAO.getQuantityByNodes(2);
     }
 }
