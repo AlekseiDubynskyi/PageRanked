@@ -5,19 +5,6 @@ import com.solvd.pageranked.models.Relations;
 
 
 public class IMatrixCreator {
-    //public static List<NodeAndLink> nodeAndLinkList = new ArrayList<>();//з бази дістати всі пари
-
-    /*public static NodeAndLink find(NodeAndLink nodeAndLink) {
-        for (NodeAndLink nodeAndLink1 : nodeAndLinkList) {
-            if (nodeAndLink1.getNode().equals(nodeAndLink.getNode())) {
-                if (nodeAndLink1.getLink().equals(nodeAndLink.getLink())) {
-                    return nodeAndLink1;
-                }
-            }
-        }
-        return null;
-    }*/
-
    public static Relations find(Relations relations) {
        RelationsDAO relationsDAO = new RelationsDAO();
         Relations relations1 = relationsDAO.getAllRelations().stream()

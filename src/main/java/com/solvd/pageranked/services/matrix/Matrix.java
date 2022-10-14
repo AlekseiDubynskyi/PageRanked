@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Matrix {
-    private int dimension; //размерность матрицы
+    private int dimension;
     private int[][] matrix;
 
     public Matrix() {
@@ -61,17 +61,6 @@ public class Matrix {
         }
         return 0;
     }
-
- /*   public String getRow() {
-        for(int i = 0; i < dimension; i++) {
-            String row = new String();
-            for(int j = 0; j < dimension; j++) {
-
-            }
-            return row;
-        }
-        return null;
-    }*/
 
     @Override
     public String toString() {

@@ -35,7 +35,7 @@ public class HTMLParser {
         int numberRelations = 1;
 
         File folder = new File("src/main/resources/html/");
-        for (File file : Objects.requireNonNull(folder.listFigit atales())) {
+        for (File file : Objects.requireNonNull(folder.listFiles())) {
             int idNode = nodesDAO.getByName(file.getName()).getId();
             Document document = Jsoup.parse(new File(folder + "/" + file.getName()), "UTF-8");
             Elements links = document.select("a");
