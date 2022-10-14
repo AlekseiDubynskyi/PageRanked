@@ -5,6 +5,8 @@ import com.solvd.pageranked.models.Nodes;
 import java.util.List;
 
 public interface INodes {
+    Nodes getById(int nodesId);
+
     Nodes getByName(String name);
 
     int getQuantityByNodes(int nodesId);
@@ -18,6 +20,7 @@ public interface INodes {
     void addNode(Nodes nodes);
 
     void updateNode(Nodes nodes);
+
     void updateQuantities(Nodes nodes);
 
     void deleteNode(int id);
