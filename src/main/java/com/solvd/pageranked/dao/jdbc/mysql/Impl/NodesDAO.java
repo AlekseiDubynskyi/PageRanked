@@ -15,6 +15,7 @@ import java.util.List;
 
 public class NodesDAO implements INodes {
     private static final Logger LOGGER = LogManager.getLogger(NodesDAO.class);
+    private static final String GET_BY_ID = "SELECT * FROM Nodes WHERE id = ?";
     private static final String INSERT = "INSERT INTO Nodes VALUES (?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE Nodes SET pageRank = ? WHERE id = ?";
     private static final String UPDATE_NODES_AND_LINKS_QUANTITIES = "UPDATE Nodes SET quantity_In = ?, quantity_Out = ? WHERE id = ?";
@@ -24,6 +25,35 @@ public class NodesDAO implements INodes {
     private static final String GET_ALL = "SELECT * FROM Nodes";
     private static final String GET_QUANTITY_OF_NODES = "SELECT Nodes_id, COUNT(*) AS quantity_Out FROM Relations WHERE Nodes_id = ? GROUP BY Nodes_id";
     private static final String GET_QUANTITY_OF_LINKS = "SELECT Links_id, COUNT(*) AS quantity_In FROM Relations WHERE Links_id = ? GROUP BY Links_id";
+
+    @Override
+    public Nodes getById(int nodesId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionUtil.getConnection();
+            preparedStatement = connection.prepareStatement(GET_BY_ID);
+            preparedStatement.setInt(1, nodesId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                Nodes nodes = new Nodes();
+                nodes.setId(resultSet.getInt("id"));
+                nodes.setQuantityIn(resultSet.getInt("quantity_In"));
+                nodes.setQuantityOut(resultSet.getInt("quantity_Out"));
+                nodes.setName(resultSet.getString("name"));
+                nodes.setPageRank(resultSet.getDouble("pageRank"));
+                return nodes;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        } finally {
+            ConnectionUtil.close(preparedStatement);
+            ConnectionUtil.close(connection);
+        }
+        return null;
+    }
 
     @Override
     public Nodes getByName(String name) {
