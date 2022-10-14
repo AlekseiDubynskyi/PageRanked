@@ -18,6 +18,7 @@ public class RelationsDAO implements IRelations {
     private static final String INSERT = "INSERT INTO Relations VALUES (?, ?, ?)";
     private static final String UPDATE = "UPDATE Relations SET Nodes_id = ?, Links_id = ? WHERE id = ?";
     private static final String DELETE = "DELETE FROM Relations WHERE id = ";
+    private static final String DELETE_ALL = "DELETE FROM Relations";
     private static final String GET_BY_NODE_AND_LINK = "SELECT * FROM Relations WHERE Nodes_id = ?, Links_id = ?";
     private static final String GET_ALL = "SELECT * FROM Relations";
 
@@ -75,6 +76,21 @@ public class RelationsDAO implements IRelations {
             ConnectionUtil.close(connection);
         }
         return null;
+    }
+
+    @Override
+    public void deleteAllRelations() {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            preparedStatement = connection.prepareStatement(DELETE_ALL);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        } finally {
+            ConnectionUtil.close(preparedStatement);
+            ConnectionUtil.close(connection);
+        }
     }
 
     @Override

@@ -18,6 +18,7 @@ public class LinksDAO implements ILinks {
     private static final String INSERT = "INSERT INTO Links VALUES (?, ?, ?)";
     private static final String UPDATE = "UPDATE Links SET linkHref = ? WHERE id = ?";
     private static final String DELETE = "DELETE FROM Links WHERE id = ";
+    private static final String DELETE_ALL = "DELETE FROM Links";
     private static final String GET_BY_LINK_HREF = "SELECT * FROM Links WHERE linkHref = ?";
     private static final String GET_ALL = "SELECT * FROM Links";
 
@@ -74,6 +75,21 @@ public class LinksDAO implements ILinks {
             ConnectionUtil.close(connection);
         }
         return null;
+    }
+
+    @Override
+    public void deleteAllLinks() {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            preparedStatement = connection.prepareStatement(DELETE_ALL);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        } finally {
+            ConnectionUtil.close(preparedStatement);
+            ConnectionUtil.close(connection);
+        }
     }
 
     @Override

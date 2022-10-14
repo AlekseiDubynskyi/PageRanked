@@ -8,6 +8,7 @@ public interface INodes {
     Nodes getByName(String name);
 
     List<Nodes> getAllNodes();
+    void deleteAllNodes();
 
     void addNode(Nodes nodes);
 

@@ -18,6 +18,7 @@ public class NodesDAO implements INodes {
     private static final String INSERT = "INSERT INTO Nodes VALUES (?, ?, ?, ?, ?)";
     private static final String UPDATE = "UPDATE Nodes SET pageRank = ? WHERE id = ?";
     private static final String DELETE = "DELETE FROM Nodes WHERE id = ";
+    private static final String DELETE_ALL = "DELETE FROM Nodes";
     private static final String GET_BY_NAME = "SELECT * FROM Nodes WHERE name = ?";
     private static final String GET_ALL = "SELECT * FROM Nodes";
 
@@ -79,6 +80,21 @@ public class NodesDAO implements INodes {
             ConnectionUtil.close(connection);
         }
         return null;
+    }
+
+    @Override
+    public void deleteAllNodes() {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            preparedStatement = connection.prepareStatement(DELETE_ALL);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        } finally {
+            ConnectionUtil.close(preparedStatement);
+            ConnectionUtil.close(connection);
+        }
     }
 
     @Override

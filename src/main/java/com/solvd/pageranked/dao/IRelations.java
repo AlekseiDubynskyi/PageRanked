@@ -9,6 +9,8 @@ public interface IRelations {
 
     List<Relations> getAllRelations();
 
+    void deleteAllRelations();
+
     void addRelations(Relations relations);
 
     void updateRelations(Relations relations);

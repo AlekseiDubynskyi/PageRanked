@@ -9,6 +9,8 @@ public interface ILinks {
 
     List<Links> getAllLinks();
 
+    void deleteAllLinks();
+
     void addLink(Links links);
 
     void updateLink(Links links);
