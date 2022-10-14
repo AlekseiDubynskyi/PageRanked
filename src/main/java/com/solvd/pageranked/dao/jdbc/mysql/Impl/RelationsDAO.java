@@ -2,7 +2,6 @@ package com.solvd.pageranked.dao.jdbc.mysql.Impl;
 
 import com.solvd.pageranked.connection.ConnectionUtil;
 import com.solvd.pageranked.dao.IRelations;
-import com.solvd.pageranked.models.Nodes;
 import com.solvd.pageranked.models.Relations;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

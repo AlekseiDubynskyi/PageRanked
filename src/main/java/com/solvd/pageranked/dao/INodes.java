@@ -7,9 +7,11 @@ import java.util.List;
 public interface INodes {
     Nodes getByName(String name);
 
-    int getQuantityByNodes(int nodesId);
+    Nodes getById(int nodesId);
 
-    int getQuantityByLinks(int linksId);
+    Nodes getQuantityByNodes(int nodesId);
+
+    Nodes getQuantityByLinks(int linksId);
 
     List<Nodes> getAllNodes();
 
@@ -18,7 +20,6 @@ public interface INodes {
     void addNode(Nodes nodes);
 
     void updateNode(Nodes nodes);
-    void updateQuantities(Nodes nodes);
 
     void deleteNode(int id);
 }

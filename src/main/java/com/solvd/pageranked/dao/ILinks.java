@@ -3,7 +3,6 @@ package com.solvd.pageranked.dao;
 import com.solvd.pageranked.models.Links;
 
 import java.util.List;
-
 public interface ILinks {
     Links getIdByLinkHref(String linkHref);
 
