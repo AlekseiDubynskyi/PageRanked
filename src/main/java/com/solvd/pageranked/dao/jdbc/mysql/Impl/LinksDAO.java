@@ -17,7 +17,8 @@ public class LinksDAO implements ILinks {
     private static final Logger LOGGER = LogManager.getLogger(LinksDAO.class);
     private static final String INSERT = "INSERT INTO Links VALUES (?, ?, ?)";
     private static final String UPDATE = "UPDATE Links SET linkHref = ? WHERE id = ?";
-    private static final String DELETE = "DELETE FROM Links WHERE id = ?";
+    private static final String DELETE = "DELETE FROM Links WHERE id = ";
+    private static final String DELETE_ALL = "DELETE FROM Links";
     private static final String GET_BY_LINK_HREF = "SELECT * FROM Links WHERE linkHref = ?";
     private static final String GET_ALL = "SELECT * FROM Links";
 
@@ -77,6 +78,21 @@ public class LinksDAO implements ILinks {
     }
 
     @Override
+    public void deleteAllLinks() {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            preparedStatement = connection.prepareStatement(DELETE_ALL);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        } finally {
+            ConnectionUtil.close(preparedStatement);
+            ConnectionUtil.close(connection);
+        }
+    }
+
+    @Override
     public void addLink(Links links) {
         PreparedStatement preparedStatement = null;
         Connection connection = ConnectionUtil.getConnection();
@@ -85,6 +101,7 @@ public class LinksDAO implements ILinks {
             preparedStatement.setInt(1, links.getId());
             preparedStatement.setString(2, links.getLinkHref());
             preparedStatement.setString(3, links.getLinkText());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {
@@ -101,6 +118,7 @@ public class LinksDAO implements ILinks {
             preparedStatement = connection.prepareStatement(UPDATE);
             preparedStatement.setString(1, links.getLinkHref());
             preparedStatement.setInt(2, links.getId());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {
@@ -115,6 +133,7 @@ public class LinksDAO implements ILinks {
         Connection connection = ConnectionUtil.getConnection();
         try {
             preparedStatement = connection.prepareStatement(DELETE + id);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {

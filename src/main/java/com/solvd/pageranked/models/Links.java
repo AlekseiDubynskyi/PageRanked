@@ -10,6 +10,15 @@ public class Links {
     public Links() {
     }
 
+    public Links(String linkHref) {
+        this.linkHref = linkHref;
+    }
+
+    public Links(int id, String linkHref) {
+        this.id = id;
+        this.linkHref = linkHref;
+    }
+
     public Links(int id, String linkHref, String linkText) {
         this.id = id;
         this.linkHref = linkHref;
@@ -45,7 +54,7 @@ public class Links {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Links links = (Links) o;
-        return id == links.id && linkHref.equals(links.linkHref) && Objects.equals(linkText, links.linkText);
+        return id == links.id && Objects.equals(linkHref, links.linkHref) && Objects.equals(linkText, links.linkText);
     }
 
     @Override

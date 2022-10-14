@@ -17,7 +17,8 @@ public class RelationsDAO implements IRelations {
     private static final Logger LOGGER = LogManager.getLogger(Relations.class);
     private static final String INSERT = "INSERT INTO Relations VALUES (?, ?, ?)";
     private static final String UPDATE = "UPDATE Relations SET Nodes_id = ?, Links_id = ? WHERE id = ?";
-    private static final String DELETE = "DELETE FROM Relations WHERE id = ?";
+    private static final String DELETE = "DELETE FROM Relations WHERE id = ";
+    private static final String DELETE_ALL = "DELETE FROM Relations";
     private static final String GET_BY_NODE_AND_LINK = "SELECT * FROM Relations WHERE Nodes_id = ?, Links_id = ?";
     private static final String GET_ALL = "SELECT * FROM Relations";
 
@@ -78,6 +79,21 @@ public class RelationsDAO implements IRelations {
     }
 
     @Override
+    public void deleteAllRelations() {
+        PreparedStatement preparedStatement = null;
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            preparedStatement = connection.prepareStatement(DELETE_ALL);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        } finally {
+            ConnectionUtil.close(preparedStatement);
+            ConnectionUtil.close(connection);
+        }
+    }
+
+    @Override
     public void addRelations(Relations relations) {
         PreparedStatement preparedStatement = null;
         Connection connection = ConnectionUtil.getConnection();
@@ -86,6 +102,7 @@ public class RelationsDAO implements IRelations {
             preparedStatement.setInt(1, relations.getId());
             preparedStatement.setInt(2, relations.getNodesId());
             preparedStatement.setInt(3, relations.getLinksId());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {
@@ -103,6 +120,7 @@ public class RelationsDAO implements IRelations {
             preparedStatement.setInt(1, relations.getNodesId());
             preparedStatement.setInt(2, relations.getLinksId());
             preparedStatement.setInt(3, relations.getId());
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {
@@ -117,6 +135,7 @@ public class RelationsDAO implements IRelations {
         Connection connection = ConnectionUtil.getConnection();
         try {
             preparedStatement = connection.prepareStatement(DELETE + id);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
         } finally {

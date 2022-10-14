@@ -6,7 +6,10 @@ import java.util.List;
 
 public interface ILinks {
     Links getByLinkHref(String linkHref);
+
     List<Links> getAllLinks();
+
+    void deleteAllLinks();
 
     void addLink(Links links);
 
