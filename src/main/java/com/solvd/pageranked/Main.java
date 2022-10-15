@@ -2,7 +2,6 @@ package com.solvd.pageranked;
 
 import com.solvd.pageranked.services.mainLogic.HTMLParser;
 import com.solvd.pageranked.services.mainLogic.MatrixCreator;
-import com.solvd.pageranked.services.mainLogic.JacksonPojoToJson;
 import com.solvd.pageranked.services.test.PageRank;
 
 import java.io.IOException;
@@ -12,7 +11,5 @@ public class Main {
         HTMLParser.HTMLParsing();
         MatrixCreator.getMyMatrix();
         PageRank.Start();
-
-        JacksonPojoToJson.JacksonStart();
     }
 }

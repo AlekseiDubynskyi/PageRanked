@@ -19,8 +19,36 @@ public class LinksDAO implements ILinks {
     private static final String UPDATE = "UPDATE Links SET linkHref = ?, linkText = ? WHERE id = ?";
     private static final String DELETE = "DELETE FROM Links WHERE id = ";
     private static final String DELETE_ALL = "DELETE FROM Links";
+    private static final String GET_BY_ID = "SELECT * FROM Links WHERE id = ?";
     private static final String GET_BY_LINK_HREF = "SELECT * FROM Links WHERE linkHref = ?";
     private static final String GET_ALL = "SELECT * FROM Links";
+
+    @Override
+    public Links getById(int id) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ConnectionUtil.getConnection();
+            preparedStatement = connection.prepareStatement(GET_BY_ID);
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                Links links = new Links();
+                links.setId(resultSet.getInt("id"));
+                links.setLinkHref(resultSet.getString("linkHref"));
+                links.setLinkText(resultSet.getString("linkText"));
+                return links;
+            }
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage());
+        } finally {
+            ConnectionUtil.close(preparedStatement);
+            ConnectionUtil.close(connection);
+        }
+        return null;
+    }
 
     @Override
     public Links getIdByLinkHref(String linkHref) {
