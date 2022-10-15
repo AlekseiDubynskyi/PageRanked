@@ -1,0 +1,33 @@
+{
+  "allNodes" : [ {
+    "id" : 1,
+    "quantityIn" : 0,
+    "quantityOut" : 0,
+    "name" : "Fifth.html",
+    "pageRank" : 0.0
+  }, {
+    "id" : 2,
+    "quantityIn" : 0,
+    "quantityOut" : 0,
+    "name" : "First.html",
+    "pageRank" : 0.0
+  }, {
+    "id" : 3,
+    "quantityIn" : 0,
+    "quantityOut" : 0,
+    "name" : "Fourth.html",
+    "pageRank" : 0.0
+  }, {
+    "id" : 4,
+    "quantityIn" : 0,
+    "quantityOut" : 0,
+    "name" : "Second.html",
+    "pageRank" : 0.0
+  }, {
+    "id" : 5,
+    "quantityIn" : 0,
+    "quantityOut" : 0,
+    "name" : "Third.html",
+    "pageRank" : 0.0
+  } ]
+}
