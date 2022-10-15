@@ -57,25 +57,4 @@ public class Matrix {
                 ", matrix=" + Arrays.toString(matrix) +
                 '}';
     }
-
-    public Matrix matrixFilling() {
-        NodesDAO nodesDAO = new NodesDAO();
-        LinksDAO linksDAO = new LinksDAO();
-        int[][] matrix1 = new int[nodesDAO.getAllNodes().size()][nodesDAO.getAllNodes().size()];
-
-        for (int i = 1; i <= nodesDAO.getAllNodes().size(); i++) {
-            Nodes node = nodesDAO.getById(i);
-            for (int j = 1; j <= nodesDAO.getAllNodes().size(); j++) {
-                Nodes node1 = nodesDAO.getById(j);
-                Links link = linksDAO.getIdByLinkHref(node1.getName());
-                Relations relations = new Relations(0, node.getId(), link.getId());
-                if (MatrixCreator.find(relations) != null) {
-                    matrix1[i - 1][j - 1] = 1;
-                } else {
-                    matrix1[i - 1][j - 1] = 0;
-                }
-            }
-        }
-        return new Matrix(nodesDAO.getAllNodes().size(), matrix1);
-    }
 }
