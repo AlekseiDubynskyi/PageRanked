@@ -1,0 +1,27 @@
+{
+  "allRelations" : [ {
+    "id" : 1,
+    "nodesId" : 2,
+    "linksId" : 4
+  }, {
+    "id" : 2,
+    "nodesId" : 3,
+    "linksId" : 1
+  }, {
+    "id" : 3,
+    "nodesId" : 4,
+    "linksId" : 3
+  }, {
+    "id" : 4,
+    "nodesId" : 4,
+    "linksId" : 1
+  }, {
+    "id" : 5,
+    "nodesId" : 5,
+    "linksId" : 2
+  }, {
+    "id" : 6,
+    "nodesId" : 5,
+    "linksId" : 4
+  } ]
+}
