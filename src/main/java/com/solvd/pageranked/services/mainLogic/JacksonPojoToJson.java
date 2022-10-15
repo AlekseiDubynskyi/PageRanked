@@ -24,10 +24,6 @@ public class JacksonPojoToJson {
         mapper.writeValue(fileOutputStreamNodes, nodesDAO);
         fileOutputStreamNodes.close();
 
-        /*FileOutputStream fileOutputStreamLinks = new FileOutputStream("src/main/resources/result/links.json");
-        mapper.writeValue(fileOutputStreamLinks, linksDAO);
-        fileOutputStreamLinks.close();*/
-
         FileOutputStream fileOutputStreamRelations = new FileOutputStream("src/main/resources/result/relations.json");
         mapper.writeValue(fileOutputStreamRelations, toName());
         fileOutputStreamRelations.close();
