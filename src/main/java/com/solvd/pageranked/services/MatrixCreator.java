@@ -1,4 +1,4 @@
-package com.solvd.pageranked.services.mainLogic;
+package com.solvd.pageranked.services;
 
 import com.solvd.pageranked.dao.jdbc.mysql.Impl.LinksDAO;
 import com.solvd.pageranked.dao.jdbc.mysql.Impl.NodesDAO;
@@ -17,9 +17,7 @@ public class MatrixCreator {
     }
 
     public static Matrix getMyMatrix() {
-        Matrix matrix = MatrixCreator.matrixFilling();
-        matrix.print();
-        return matrix;
+        return MatrixCreator.matrixFilling();
     }
 
     public static Matrix matrixFilling() {
