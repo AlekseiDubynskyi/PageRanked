@@ -25,17 +25,11 @@ public class PageRank {
         int k;
         int ITERATION_STEP = 1;
         InitialPageRank = 1 / totalNodes;
-        // System.out.printf(" Total Number of Nodes :" + totalNodes + "\t Initial PageRank  of All Nodes :" + InitialPageRank + "\n");
 
         for (k = 0; k < totalNodes; k++) {
             this.pagerank[k] = InitialPageRank;
         }
 
-       /* System.out.print("\n Initial PageRank Values , 0th Step \n");
-        for (k = 0; k < totalNodes; k++) {
-            // System.out.printf(" Page Rank of " + k + " is :\t" + this.pagerank[k] + "\n");
-        }
-*/
         while (ITERATION_STEP <= 2) // Iterations
         {
             for (k = 0; k < totalNodes; k++) {
@@ -59,11 +53,6 @@ public class PageRank {
                     }
                 }
             }
-
-            // System.out.printf("\n After " + ITERATION_STEP + "th Step \n");
-
-            //  for (k = 0; k < totalNodes; k++)
-            //  System.out.printf(" Page Rank of " + k + " is :\t" + this.pagerank[k] + "\n");
 
             ITERATION_STEP = ITERATION_STEP + 1;
         }

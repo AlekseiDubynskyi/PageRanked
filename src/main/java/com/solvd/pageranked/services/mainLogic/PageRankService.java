@@ -19,7 +19,9 @@ public class PageRankService {
     public void updatePageRank() {
         this.pageRankResults = pageRank.calculate();
         for (int i = 0; i < pageRankResults.length; i++) {
-            iNodes.updateNodePageRank(pageRankResults[i], i + 1);
+            Nodes byId = iNodes.getById(i + 1);
+            byId.setPageRank(pageRankResults[i]);
+            iNodes.updateNode(byId);
 
         }
     }

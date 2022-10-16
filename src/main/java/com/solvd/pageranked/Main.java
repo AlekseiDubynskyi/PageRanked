@@ -14,7 +14,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException {
         HTMLParser.HTMLParsing();
-        Matrix matrix = MatrixCreator.getMatrix();
+        Matrix matrix = MatrixCreator.getMyMatrix();
         //matrix.print();
         INodes iNodes = new NodesDAO();
         PageRank pageRank = new PageRank(matrix);
