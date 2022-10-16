@@ -1,4 +1,4 @@
-package com.solvd.pageranked.services.mainLogic;
+package com.solvd.pageranked.services;
 
 import com.solvd.pageranked.models.Matrix;
 
@@ -22,14 +22,14 @@ public class PageRank {
         int ExternalNodeNumber;
         int InternalNodeNumber;
         int k;
-        int ITERATION_STEP = 1;
+        int iterationStep = 1;
         InitialPageRank = 1 / totalNodes;
 
         for (k = 0; k < totalNodes; k++) {
             this.pagerank[k] = InitialPageRank;
         }
 
-        while (ITERATION_STEP <= 2) // Iterations
+        while (iterationStep <= 2)
         {
             for (k = 0; k < totalNodes; k++) {
                 TempPageRank[k] = this.pagerank[k];
@@ -53,7 +53,7 @@ public class PageRank {
                 }
             }
 
-            ITERATION_STEP = ITERATION_STEP + 1;
+            iterationStep = iterationStep + 1;
         }
 
         for (k = 0; k < totalNodes; k++) {

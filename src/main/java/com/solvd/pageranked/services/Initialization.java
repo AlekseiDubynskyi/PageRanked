@@ -1,4 +1,4 @@
-package com.solvd.pageranked.services.mainLogic;
+package com.solvd.pageranked.services;
 
 import com.solvd.pageranked.dao.jdbc.mysql.Impl.LinksDAO;
 import com.solvd.pageranked.dao.jdbc.mysql.Impl.NodesDAO;

@@ -1,4 +1,4 @@
-package com.solvd.pageranked.services.mainLogic;
+package com.solvd.pageranked.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
