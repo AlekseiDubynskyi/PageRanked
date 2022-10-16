@@ -9,8 +9,7 @@ public class PageRank {
 
     public PageRank(Matrix matrix) {
         this.nodes = matrix.getDimension();
-        this.path = matrix.getMatrix();
-        setZerosToMainDiagonal();
+        this.path = setZerosToMainDiagonal(matrix.getMatrix());
         this.pagerank = new double[nodes];
     }
 
@@ -65,9 +64,10 @@ public class PageRank {
         return pagerank;
     }
 
-    private void setZerosToMainDiagonal() {
-        for (int i = 0; i < path.length; i++) {
-            path[i][i] = 0;
+    private int[][] setZerosToMainDiagonal(int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            matrix[i][i] = 0;
         }
+        return matrix;
     }
 }
