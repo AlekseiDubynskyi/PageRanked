@@ -4,10 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import com.solvd.pageranked.dao.jdbc.mysql.Impl.LinksDAO;
-import com.solvd.pageranked.dao.jdbc.mysql.Impl.NodesDAO;
-import com.solvd.pageranked.services.mainLogic.MatrixCreator;
-
 public class Matrix {
     private int dimension;
     private int[][] matrix;
@@ -40,6 +36,14 @@ public class Matrix {
         this.matrix = matrix;
     }
 
+    @Override
+    public String toString() {
+        return "Matrix{" +
+                "dimension=" + dimension +
+                ", matrix=" + Arrays.toString(matrix) +
+                '}';
+    }
+
     public void print() {
         for (int i = 0; i < dimension; i++) {
             List<Integer> integerList = new ArrayList<>();
@@ -48,13 +52,5 @@ public class Matrix {
             }
             System.out.println(integerList);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Matrix{" +
-                "dimension=" + dimension +
-                ", matrix=" + Arrays.toString(matrix) +
-                '}';
     }
 }
